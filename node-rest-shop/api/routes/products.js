@@ -8,12 +8,11 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-    res.status(200).json({
+    res.status(201).json({
         message: 'handling POST requests to /products'
     });
 });
 
-//get info about 1 single product
 router.get('/:productId', (req, res, next) => {
     const id = req.params.productId;
     console.log(id);
@@ -29,14 +28,12 @@ router.get('/:productId', (req, res, next) => {
     }
 });
 
-//patch 1 single product
 router.patch('/:productId', (req, res, next) => {
     res.status(200).json({
         message: 'Updated product'
     });
 });
 
-//delete 1 single product
 router.delete('/:productId', (req, res, next) => {
     res.status(200).json({
         message: 'Deleted product'
