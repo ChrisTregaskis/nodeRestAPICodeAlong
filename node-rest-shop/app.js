@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-// Middleware, logs each request
 const morgan = require('morgan');
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
@@ -8,8 +7,14 @@ const mongoose = require('mongoose')
 const productRoutes = require('./api/routes/products')
 const orderRoutes = require('./api/routes/orders')
 
+// DB Connection (useNewUrlParser and useUnifiedTopology required)
+mongoose.connect(
+    `mongodb+srv://userAko:${process.env.MONGO_ATLAS_PW}@node-rest-shop-m29v7.mongodb.net/test`,
+    { useNewUrlParser: true, useUnifiedTopology: true }
+    );
+
 // Middleware
-app.use(morgan('dev'));
+app.use(morgan('dev')); // logs req to console
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use((req, res, next) => {
