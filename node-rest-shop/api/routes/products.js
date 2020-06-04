@@ -108,10 +108,16 @@ router.patch('/:productId', (req, res, next) => {
     }
 
     Product
-        .update({_id: id}, { $set: updateOperations})
+        .updateOne({_id: id}, { $set: updateOperations})
         .exec()
         .then(result => {
-            res.status(200).json(result);
+            res.status(200).json({
+                modified: result.nModified,
+                request: {
+                    type: 'GET',
+                    url: 'http://localhost:5050/products/' + result._id
+                }
+            });
         })
         .catch(err => {
             res.status(500).json({
