@@ -83,7 +83,8 @@ router.get('/:productId', (req, res, next) => {
                     _id: doc._id,
                     request: {
                         type: 'GET',
-                        url: 'http://localhost:5050/products/' + doc._id
+                        description: 'Get all products',
+                        url: 'http://localhost:5050/products/'
                     }
                 });
             } else {
@@ -112,10 +113,10 @@ router.patch('/:productId', (req, res, next) => {
         .exec()
         .then(result => {
             res.status(200).json({
-                modified: result.nModified,
+                message: 'Product updated',
                 request: {
                     type: 'GET',
-                    url: 'http://localhost:5050/products/' + result._id
+                    url: 'http://localhost:5050/products/' + id
                 }
             });
         })
@@ -130,10 +131,17 @@ router.patch('/:productId', (req, res, next) => {
 router.delete('/:productId', (req, res, next) => {
     const id = req.params.productId;
     Product
-        .remove({_id: id})
+        .deleteOne({_id: id})
         .exec()
         .then(result => {
-            res.status(200).json(result);
+            res.status(200).json({
+                message: 'Product deleted',
+                request: {
+                    type: 'POST',
+                    url: 'http://localhost:5050/products',
+                    body: { name: 'String', price: 'Number' }
+                }
+            });
         })
         .catch(err => {
             res.status(500).json({
