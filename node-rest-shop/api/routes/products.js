@@ -8,7 +8,13 @@ router.get('/', (req, res, next) => {
         .find()
         .exec()
         .then(docs => {
-            res.status(200).json({docs});
+            if (docs.length > 0) {
+                res.status(200).json({docs});
+            } else {
+                res.status(404).json({
+                    message: 'no data in db'
+                })
+            }
         })
         .catch(err => {
             res.status(500).json({
