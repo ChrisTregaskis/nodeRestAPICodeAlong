@@ -9,6 +9,7 @@ router.get('/', (req, res, next) => {
     Order
         .find()
         .select('product quantity _id')
+        .populate('product', 'name')
         .exec()
         .then(docs => {
             res.status(200).json({
@@ -75,12 +76,13 @@ router.post('/', (req, res, next) => {
 
 router.get('/:orderId', (req, res, next) => {
     Order.findById(req.params.orderId)
+        .populate('product', 'name price')
         .exec()
         .then(order => {
 
             if (!order) {
                 return res.status(404).json({
-                    message: 'Order does not exist'
+                    message: 'Order not found'
                 })
             }
 
