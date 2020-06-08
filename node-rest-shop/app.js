@@ -15,6 +15,7 @@ mongoose.connect(
 
 // Middleware
 app.use(morgan('dev')); // logs req to console
+app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use((req, res, next) => {
