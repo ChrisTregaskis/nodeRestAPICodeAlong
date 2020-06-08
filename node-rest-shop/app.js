@@ -4,8 +4,9 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
-const productRoutes = require('./api/routes/products')
-const orderRoutes = require('./api/routes/orders')
+const productRoutes = require('./api/routes/products');
+const orderRoutes = require('./api/routes/orders');
+const userRoutes = require('./api/routes/user');
 
 // DB Connection (useNewUrlParser and useUnifiedTopology required)
 mongoose.connect(
@@ -34,6 +35,7 @@ app.use((req, res, next) => {
 // Routes
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
+app.use('/user', userRoutes);
 
 // If none of the about routes accessed, execute error json response
 app.use((req, res, next) => {
