@@ -37,7 +37,7 @@ exports.products_get_all = (req, res, next) => {
         });
 };
 
-exports.products_create_new = (req, res, next) => {
+exports.products_create_product = (req, res, next) => {
     const product = new Product({
         _id: new mongoose.Types.ObjectId(), // generates new object id
         name: req.body.name,
@@ -69,7 +69,7 @@ exports.products_create_new = (req, res, next) => {
 
 };
 
-exports.products_get_single = (req, res, next) => {
+exports.products_get_product = (req, res, next) => {
     const id = req.params.productId;
     Product
         .findById(id)

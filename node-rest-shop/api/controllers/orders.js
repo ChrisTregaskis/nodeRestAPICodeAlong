@@ -32,7 +32,7 @@ exports.orders_get_all = (req, res, next) => {
         });
 };
 
-exports.orders_create_new = (req, res, next) => {
+exports.orders_create_order = (req, res, next) => {
     Product.findById(req.body.productId)
         .then(product => {
 
@@ -71,7 +71,7 @@ exports.orders_create_new = (req, res, next) => {
         });
 };
 
-exports.orders_get_single = (req, res, next) => {
+exports.orders_get_order = (req, res, next) => {
     Order.findById(req.params.orderId)
         .populate('product', 'name price')
         .exec()
