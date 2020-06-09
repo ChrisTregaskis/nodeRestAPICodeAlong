@@ -10,44 +10,7 @@ const OrdersController = require('../controllers/orders');
 
 router.get('/', checkAuth, OrdersController.orders_get_all);
 
-router.post('/', checkAuth, (req, res, next) => {
-    Product.findById(req.body.productId)
-        .then(product => {
-
-            if (!product) {
-                return res.status(404).json({
-                    message: 'Product not found'
-                });
-            }
-
-            const order = new Order({
-                _id: mongoose.Types.ObjectId(),
-                product: req.body.productId,
-                quantity: req.body.quantity
-            });
-
-            return order.save()
-        })
-        .then(result => {
-            res.status(201).json({
-                message: 'Order successfully placed',
-                createdOrder: {
-                    _id: result._id,
-                    product: result.product,
-                    quantity: result.quantity
-                },
-                request: {
-                    type: 'GET',
-                    url: 'http://localhost:5050/orders/' + result._id
-                }
-            })
-        })
-        .catch(err => {
-            res.status(500).json({
-                error: err
-            });
-        });
-});
+router.post('/', checkAuth, OrdersController.orders_create_new);
 
 router.get('/:orderId', checkAuth, (req, res, next) => {
     Order.findById(req.params.orderId)
