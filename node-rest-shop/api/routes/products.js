@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const checkAuth = require('../middleware/check-auth');
 const ProductsController = require('../controllers/products');
-const fileStorage = require('../middleware/file-storage')
+const fileStorage = require('../middleware/file-storage');
 
 router.get('/', ProductsController.products_get_all);
 router.post('/', checkAuth, fileStorage.upload_file, ProductsController.products_create_product);
