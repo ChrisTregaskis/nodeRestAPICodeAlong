@@ -96,4 +96,24 @@ exports.orders_get_single = (req, res, next) => {
                 error: err
             })
         })
-}
+};
+
+exports.orders_delete_order = (req, res, next) => {
+    Order.deleteOne({_id: req.params.orderId})
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: 'Order deleted',
+                request: {
+                    type: 'POST',
+                    url: 'http://localhost:5050/orders/',
+                    body: { productId: '_id', quantity: 'Number'}
+                }
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            });
+        });
+};
